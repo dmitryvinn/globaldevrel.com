@@ -1,16 +1,17 @@
 # Global DevRel — Contact Form Worker
 # Deploy: npx wrangler deploy
+# Set API key: npx wrangler secret put RESEND_API_KEY
 
 name = "globaldevrel-contact"
 main = "worker.js"
 compatibility_date = "2024-01-01"
 
-# Environment variables — set these in the Cloudflare dashboard
-# or uncomment and fill in below:
-#
-# [vars]
-# RECIPIENT_EMAIL = "consulting@globaldevrel.com"
-# ALLOWED_ORIGIN = "https://globaldevrel.com"
+[vars]
+ALLOWED_ORIGIN = "https://globaldevrel.com"
+RECIPIENT_EMAIL = "noreply@dvinnik.dev"
+
+# RESEND_API_KEY is set via `npx wrangler secret put RESEND_API_KEY`
+# (secrets are encrypted and not overwritten by deploys)
 
 # Custom domain route (optional — configure after adding domain to Cloudflare):
 # [[routes]]
