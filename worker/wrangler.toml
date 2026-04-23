@@ -1,0 +1,18 @@
+# Global DevRel — Contact Form Worker
+# Deploy: npx wrangler deploy
+
+name = "globaldevrel-contact"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Environment variables — set these in the Cloudflare dashboard
+# or uncomment and fill in below:
+#
+# [vars]
+# RECIPIENT_EMAIL = "consulting@globaldevrel.com"
+# ALLOWED_ORIGIN = "https://globaldevrel.com"
+
+# Custom domain route (optional — configure after adding domain to Cloudflare):
+# [[routes]]
+# pattern = "api.globaldevrel.com/*"
+# zone_name = "globaldevrel.com"
