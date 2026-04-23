@@ -117,7 +117,7 @@ export default {
             Authorization: `Bearer ${resendApiKey}`,
           },
           body: JSON.stringify({
-            from: "Global DevRel <noreply@globaldevrel.com>",
+            from: "Global DevRel <noreply@dvinnik.dev>",
             to: [recipientEmail],
             reply_to: email,
             subject: `[Global DevRel] ${subject || "New Contact Form Submission"} — from ${name}`,
