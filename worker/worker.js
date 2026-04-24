@@ -25,6 +25,8 @@ const CORS_HEADERS = {
 function corsHeaders(origin, allowedOrigin) {
   const allowed =
     origin === allowedOrigin ||
+    origin?.endsWith(".globaldevrel-site.pages.dev") ||
+    origin === "https://globaldevrel-site.pages.dev" ||
     origin?.startsWith("http://localhost") ||
     origin?.startsWith("https://localhost");
 
