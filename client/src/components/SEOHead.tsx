@@ -20,12 +20,13 @@ const SITE_NAME = "Global DevRel";
 const DEFAULT_DESCRIPTION =
   "Expert developer advocacy consulting — from DevRel strategy and program audits to content production, community building, and conference speaking.";
 const DEFAULT_URL = "https://globaldevrel.com";
+const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407462879/KQxXc7ieBaEZNMPbGetNr6/og-globaldevrel_00217430.png";
 
 export default function SEOHead({
   title,
   description = DEFAULT_DESCRIPTION,
   canonical = DEFAULT_URL,
-  ogImage,
+  ogImage = DEFAULT_OG_IMAGE,
   ogType = "website",
   twitterCard = "summary_large_image",
   jsonLd,
@@ -56,17 +57,15 @@ export default function SEOHead({
     setMeta("property", "og:type", ogType);
     setMeta("property", "og:url", canonical);
     setMeta("property", "og:site_name", SITE_NAME);
-    if (ogImage) {
-      setMeta("property", "og:image", ogImage);
-    }
+    setMeta("property", "og:image", ogImage);
+    setMeta("property", "og:image:width", "1200");
+    setMeta("property", "og:image:height", "630");
 
     // Twitter Card
     setMeta("name", "twitter:card", twitterCard);
     setMeta("name", "twitter:title", fullTitle);
     setMeta("name", "twitter:description", description);
-    if (ogImage) {
-      setMeta("name", "twitter:image", ogImage);
-    }
+    setMeta("name", "twitter:image", ogImage);
 
     // Canonical link
     let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
