@@ -6,10 +6,11 @@
 */
 
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { scrollToSection } from "@/lib/navigation";
 
 interface CaseStudyCard {
   slug: string;
@@ -63,6 +64,8 @@ const caseStudies: CaseStudyCard[] = [
 ];
 
 export default function WorkIndex() {
+  const [, navigate] = useLocation();
+
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
       <SEOHead
@@ -151,17 +154,16 @@ export default function WorkIndex() {
                 </h3>
               </div>
               <div className="lg:text-right">
-                <Link
-                  href="/"
-                  onClick={() => {
-                    setTimeout(() => {
-                      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                    }, 100);
+                <a
+                  href="/#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("#contact", navigate);
                   }}
                   className="inline-flex items-center gap-2 font-body text-sm font-semibold text-[#E63B2E] border-b-2 border-[#E63B2E] pb-0.5 hover:text-[#1A1A1A] hover:border-[#1A1A1A] transition-colors duration-200"
                 >
                   Start a conversation →
-                </Link>
+                </a>
               </div>
             </div>
           </div>

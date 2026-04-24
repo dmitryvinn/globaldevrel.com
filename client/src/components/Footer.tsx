@@ -5,7 +5,36 @@
   Depersonalized — no location, no personal site.
 */
 
+import { useLocation } from "wouter";
+import { scrollToSection } from "@/lib/navigation";
+
 export default function Footer() {
+  const [, navigate] = useLocation();
+
+  const handleSectionClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId, navigate);
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const [location] = window.location.pathname.split("?");
+    if (location === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+    }
+  };
+
+  const navItems = [
+    { label: "Services", section: "#services" },
+    { label: "Work", href: "/work", isRoute: true },
+    { label: "About", section: "#about" },
+    { label: "Process", section: "#process" },
+    { label: "Contact", section: "#contact" },
+  ];
+
   return (
     <footer className="bg-[#151515] border-t border-[#333]">
       <div className="container py-12 lg:py-16">
@@ -13,11 +42,8 @@ export default function Footer() {
           {/* Logo + tagline */}
           <div className="md:col-span-5">
             <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              href="/"
+              onClick={handleLogoClick}
               className="font-display text-xl font-bold text-[#FAF7F2] hover:text-[#E63B2E] transition-colors duration-200"
             >
               Global DevRel
@@ -34,19 +60,31 @@ export default function Footer() {
               Navigation
             </p>
             <div className="flex flex-col gap-2">
-              {["Services", "Work", "About", "Process", "Contact"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector(`#${item.toLowerCase()}`)?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="font-body text-sm text-[#666] hover:text-[#FAF7F2] transition-colors duration-200"
-                >
-                  {item}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.isRoute ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(item.href!);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="font-body text-sm text-[#666] hover:text-[#FAF7F2] transition-colors duration-200"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={`/${item.section}`}
+                    onClick={(e) => handleSectionClick(e, item.section!)}
+                    className="font-body text-sm text-[#666] hover:text-[#FAF7F2] transition-colors duration-200"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
             </div>
           </div>
 
@@ -87,11 +125,8 @@ export default function Footer() {
               Ready to talk?
             </p>
             <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-              }}
+              href="/#contact"
+              onClick={(e) => handleSectionClick(e, "#contact")}
               className="inline-flex items-center gap-2 font-body text-sm font-semibold text-[#E63B2E] hover:text-[#FAF7F2] transition-colors duration-200"
             >
               Start a conversation →

@@ -8,6 +8,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import { scrollToSection } from "@/lib/navigation";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -43,8 +44,19 @@ export default function Navbar() {
       navigate(href);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      scrollToSection(href, navigate);
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    const [location] = window.location.pathname.split("?");
+    if (location === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
     }
   };
 
@@ -59,11 +71,8 @@ export default function Navbar() {
       <div className="container flex items-center justify-between h-16 lg:h-20">
         {/* Logo — text only, serif */}
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          href="/"
+          onClick={handleLogoClick}
           className="font-display text-xl lg:text-2xl font-bold text-[#1A1A1A] tracking-tight hover:text-[#E63B2E]"
         >
           Global DevRel
@@ -74,7 +83,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={link.isRoute ? link.href : `/${link.href}`}
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick(link.href, link.isRoute);
@@ -85,7 +94,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/#contact"
             onClick={(e) => {
               e.preventDefault();
               handleNavClick("#contact");
@@ -113,7 +122,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={link.isRoute ? link.href : `/${link.href}`}
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavClick(link.href, link.isRoute);
@@ -124,7 +133,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("#contact");

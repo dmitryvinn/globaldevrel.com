@@ -51,14 +51,7 @@ export default function CaseStudyLayout({ data }: { data: CaseStudyData }) {
         <div className="container">
           {/* Back link */}
           <Link
-            href="/"
-            onClick={() => {
-              // If coming from the homepage, scroll to #work after navigation
-              setTimeout(() => {
-                const el = document.querySelector("#work");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }, 100);
-            }}
+            href="/work"
             className="inline-flex items-center gap-2 font-body text-sm text-[#8A8578] hover:text-[#E63B2E] mb-8"
           >
             <ArrowLeft size={16} />
