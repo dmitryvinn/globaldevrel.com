@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 // Cloudflare Worker endpoint — same pattern as api.dvinnik.dev
-const WORKER_URL = "https://api.globaldevrel.com";
+const WORKER_URL = "https://globaldevrel-contact.dmitryvinn.workers.dev";
 
 const consultingTopics = [
   "DevRel Program Strategy & Audit",
